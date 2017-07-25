@@ -1,13 +1,13 @@
-# Distributing proprietary binaries with Pip / PyPi
+# Distributing proprietary binaries with Pip / PyPI
 
 Pip (see below) is a command line utility that downloads and installs software
-distribtions (packages) (see below) from the Python Package Index (PyPI)
+distributions (packages) (see below) from the Python Package Index (PyPI)
 website (see below) - a public archive of Python packages.
 
 There are currently no license restrictions on the packages that a user can
-upload to the PyPI.  It is therefore possible for the user to
-ask Pip to install software using a copy-left license along with software
-using an incompatible (for example, proprietary) license.
+upload to the PyPI archive.  It is therefore possible for the user to ask Pip to
+install software using a copy-left license along with software using an
+incompatible (for example, proprietary) license.
 
 This document is to ask for advice as to when such an install represents a
 violation of the GPL license terms.
@@ -40,9 +40,9 @@ body advising on the installation of Python packages.
 
 ### Python Package Index - PyPI
 
-PyPi is the [Python Package Index](https://pypi.python.org/pypi).  See also
-[the PyPi Wikipedia
-article](https://en.wikipedia.org/wiki/Python_Package_Index).  PyPi is a
+PyPI is the [Python Package Index](https://pypi.python.org/pypi).  See also
+[the PyPI Wikipedia
+article](https://en.wikipedia.org/wiki/Python_Package_Index).  PyPI is a
 software repository, consisting of an archive of packages, and a web service
 through which Pip, in particular, can search for and download packages.
 
@@ -101,7 +101,7 @@ together".  The question then becomes what is a "separate program".  In the
 FAQ: "If modules are designed to run linked together in a shared address
 space, that almost surely means combining them into one program."
 
-We will use the term *composite* for a collection of programs that should b
+We will use the term *composite* for a collection of programs that should be
 considered as one program, in this sense.  Therefore a collection of programs
 may be an *aggregate* or a *composite*.
 
@@ -117,11 +117,6 @@ specification, Pip determines the specification of packages that P depends on
 already has a package matching P-spec, and if not, it runs another download /
 specification check on P-spec, continuing recursively until it has packages
 matching the original specification and all missing dependent packages.
-
-A package is not required to specify all its dependencies - that is up to the
-package author.  For example, package A might depend on package B in order to
-run, but not specify package B in its P-spec.
-
 For example, here is a terminal session where the user asks Pip for the
 [Scipy](https://pypi.python.org/pypi/scipy) package.  The Scipy package
 depends on the [Numpy](https://pypi.python.org/pypi/numpy) package.  Pip
@@ -138,7 +133,11 @@ downloads both Scipy and Numpy, and installs them:
     Successfully installed numpy-1.13.1 scipy-0.19.1
 
 We will use the phrase "pip output" to refer to the files that get installed
-on the user's machine after a single call to pip.
+on the user's machine after a single call to Pip.
+
+A package is not required to specify all its dependencies - that is up to the
+package author.  For example, package A might depend on package B in order to
+run, but not specify package B in its P-spec.
 
 ## Examples to support the discussion
 
@@ -172,12 +171,12 @@ Consider the *pip output* from:
     pip install gpl_package proprietary_package
 
 By the construction of our example, there is no code in `gpl_package` using
-`proprietary_package`, and there is no code in `proprietary_package` importing
+`proprietary_package`, and there is no code in `proprietary_package` using
 `gpl_package`.
 
-Our assumption is that the pip output constitutes an *aggregate* of
+Our assumption is that the Pip output constitutes an *aggregate* of
 `gpl_package` and `proprietary_package` (see above) and therefore, this
-installation by pip does not violate the GPL.  Is this assumption correct?
+installation by Pip does not violate the GPL.  Is this assumption correct?
 
 ### Pip install of `composite_package` without dependency resolution
 
@@ -189,16 +188,16 @@ In that circumstance:
     pip install composite_package
 
 will install `composite_package` but not `gpl_package`. Here no GPL code has
-been installed, although the pip output cannot be used to do any useful work
+been installed, although the Pip output cannot be used to do any useful work
 until the user separately installs `gpl_package`.
 
-We assume that the pip install command above does not violate the GPL, because
+We assume that the Pip install command above does not violate the GPL, because
 it does not convey GPL software.  Is that correct?
 
 ### Pip install of `composite_package` with dependency resolution
 
 Imagine that the version of `composite_package` on PyPI does specify
-`gpl_package` in its P-spec. Now the pip output of:
+`gpl_package` in its P-spec. Now the Pip output of:
 
     pip install composite_package
 
@@ -208,13 +207,13 @@ install, where `composite_package`, `gpl_package` and `proprietary_package`
 should all be considered part of a single larger program.  In this case, the
 GPL license should be applied to the whole work, and as it cannot (by
 construction) be applied to `proprietary_package`, we assume the output from
-the pip command above will violate the GPL.  Is this correct?
+the Pip command above will violate the GPL.  Is this correct?
 
 If it is correct, who should be held liable for this violation?
 
 Is it the controllers of the PyPI site, that hosts the package in such a way
 that such an output is possible?  Or the person who uploaded the
-version of `composite_package` that required pip (by default) to download
+version of `composite_package` that required Pip (by default) to download
 `gpl_package` with `composite_package` and `proprietary_package`?
 
 ### Two-step pip install of `composite_package` without dependency resolution
@@ -228,8 +227,8 @@ its P-spec.  Now consider:
     pip install gpl_package
 
 If we are correct in our assumptions above, neither of the individual commands
-/ pip outputs would violate the GPL when run in isolation.  However, the two
-commands together produce a combined output equivalent to the pip install with
+/ Pip outputs would violate the GPL when run in isolation.  However, the two
+commands together produce a combined output equivalent to the Pip install with
 dependency resolution above.  Does the second of these two commands violate
 the GPL?  Under what circumstances?  For example, what if these two commands
 are run by two different users, or on two different days?
