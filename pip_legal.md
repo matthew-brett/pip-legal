@@ -232,3 +232,46 @@ commands together produce a combined output equivalent to the Pip install with
 dependency resolution above.  Does the second of these two commands violate
 the GPL?  Under what circumstances?  For example, what if these two commands
 are run by two different users, or on two different days?
+
+### Is the Intel Fortran run-time a system library?
+
+Thus far we have discussed `proprietary_package` which has a license
+incompatible with the GPL.
+
+We assume that linking Numpy to the Intel Fortran run-time library will make
+the license of the Numpy binary incompatible with the GPL (because of linked
+routines compiled from closed-source code).  This section checks whether that
+assumption is correct.
+
+The GPL has a [system library
+exception](https://www.gnu.org/licenses/gpl-faq.en.html#SystemLibraryException),
+that allows us to convey GPL works with "system libraries" that cannot be
+licensed under the GPL.  The [GPLv3
+license](https://www.gnu.org/licenses/gpl-3.0.html) has the following text
+defining system libraries:
+
+> The “System Libraries” of an executable work include anything, other than
+> the work as a whole, that (a) is included in the normal form of packaging a
+> Major Component, but which is not part of that Major Component, and (b)
+> serves only to enable use of the work with that Major Component, or to
+> implement a Standard Interface for which an implementation is available to
+> the public in source code form. A “Major Component”, in this context, means
+> a major essential component (kernel, window system, and so on) of the
+> specific operating system (if any) on which the executable work runs, or a
+> compiler used to produce the work, or an object code interpreter used to run
+> it.
+
+[GPL2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) has this:
+
+> However, as a special exception, the source code distributed need not
+> include anything that is normally distributed (in either source or binary
+> form) with the major components (compiler, kernel, and so on) of the
+> operating system on which the executable runs, unless that component itself
+> accompanies the executable.
+
+Our question is - does the closed-source run-time of Intel Fortran qualify as
+a "system library" in these senses?  Specifically, if we statically link to
+the Intel Fortran run-time, to build a Numpy binary package, or we dynamically
+link to this run-time and ship the closed-source run-time library with the
+Numpy binary package, does this qualify under the system library exception?
+Is the answer the same for GPL2 and GPL3?
