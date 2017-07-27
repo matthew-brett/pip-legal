@@ -4,13 +4,14 @@ Pip (see below) is a command line utility that downloads and installs software
 distributions (packages) (see below) from the Python Package Index (PyPI)
 website (see below) - a public archive of Python packages.
 
-There are currently no license restrictions on the packages that a user can
-upload to the PyPI archive.  It is therefore possible for the user to ask Pip to
-install software using a copy-left license along with software using an
-incompatible (for example, proprietary) license.
+There are currently [almost](https://pypi.org/policy/terms-of-use/) no license
+restrictions on the packages that a user can upload to the PyPI archive.  It
+is therefore possible for the user to ask Pip to install software using a
+copy-left license along with software using an incompatible (for example,
+proprietary) license.
 
 This document is to ask for advice as to when such an install represents a
-violation of the GPL license terms.
+violation of the copy-left GNU General Public License (GPL) terms.
 
 Our immediate motivation is that we want to compile the Numpy Python package
 using the Intel Fortran compiler, which would result in Numpy packages that
