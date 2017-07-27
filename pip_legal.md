@@ -1,4 +1,4 @@
-# Distributing proprietary binaries with Pip / PyPI
+# Linking closed-source binaries for distribution with Pip / PyPI
 
 Pip (see below) is a command line utility that downloads and installs software
 distributions (packages) (see below) from the Python Package Index (PyPI)
