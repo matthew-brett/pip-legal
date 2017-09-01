@@ -1,5 +1,12 @@
 # Linking closed-source binaries for distribution with Pip / PyPI
 
+*Note*: there are 6 numbered questions in the *Questions* section below,
+numbered 1, 2, 3a, 3b, 4, and 5.  This document introduces terms, then
+sets up some examples for exposition. The final section asks the questions we
+would like an opinion on.
+
+## Introduction
+
 Pip (see below) is a command line utility that downloads and installs software
 distributions (packages) (see below) from the Python Package Index (PyPI)
 website (see below) - a public archive of Python packages.
@@ -175,9 +182,10 @@ By the construction of our example, there is no code in `gpl_package` using
 `proprietary_package`, and there is no code in `proprietary_package` using
 `gpl_package`.
 
-Our assumption is that the Pip output constitutes an *aggregate* of
-`gpl_package` and `proprietary_package` (see above) and therefore, this
-installation by Pip does not violate the GPL.  Is this assumption correct?
+**Question 1 : Our assumption is that the Pip output constitutes an
+*aggregate* of `gpl_package` and `proprietary_package` (see above) and
+therefore, this installation by Pip does not violate the GPL.  Is this
+assumption correct?**
 
 ### Pip install of `composite_package` without dependency resolution
 
@@ -192,8 +200,8 @@ will install `composite_package` but not `gpl_package`. Here no GPL code has
 been installed, although the Pip output cannot be used to do any useful work
 until the user separately installs `gpl_package`.
 
-We assume that the Pip install command above does not violate the GPL, because
-it does not convey GPL software.  Is that correct?
+**Question 2: We assume that the Pip install command above does not violate
+the GPL, because it does not convey GPL software.  Is that correct?**
 
 ### Pip install of `composite_package` with dependency resolution
 
@@ -203,19 +211,20 @@ Imagine that the version of `composite_package` on PyPI does specify
     pip install composite_package
 
 includes the files for `gpl_package` and `proprietary_package` as well as
-`composite_package`.  We assume that this should be considered a "composite"
+`composite_package`.
+
+**Question 3a: We assume that this should be considered a "composite"
 install, where `composite_package`, `gpl_package` and `proprietary_package`
 should all be considered part of a single larger program.  In this case, the
 GPL license should be applied to the whole work, and as it cannot (by
 construction) be applied to `proprietary_package`, we assume the output from
-the Pip command above will violate the GPL.  Is this correct?
+the Pip command above will violate the GPL.  Is this correct?**
 
-If it is correct, who should be held liable for this violation?
-
-Is it the controllers of the PyPI site, that hosts the package in such a way
-that such an output is possible?  Or the person who uploaded the
+**Question 3b: If it is correct, who should be held liable for this
+violation?  Is it the controllers of the PyPI site, that hosts the package in
+such a way that such an output is possible?  Or the person who uploaded the
 version of `composite_package` that required Pip (by default) to download
-`gpl_package` with `composite_package` and `proprietary_package`?
+`gpl_package` with `composite_package` and `proprietary_package`?**
 
 ### Two-step pip install of `composite_package` without dependency resolution
 
@@ -230,9 +239,11 @@ its P-spec.  Now consider:
 If we are correct in our assumptions above, neither of the individual commands
 / Pip outputs would violate the GPL when run in isolation.  However, the two
 commands together produce a combined output equivalent to the Pip install with
-dependency resolution above.  Does the second of these two commands violate
-the GPL?  Under what circumstances?  For example, what if these two commands
-are run by two different users, or on two different days?
+dependency resolution above.
+
+**Question 4: Does the second of these two commands violate the GPL?  Under
+what circumstances?  For example, what if these two commands are run by two
+different users, or on two different days?**
 
 ### Is the Intel Fortran run-time a system library?
 
@@ -270,9 +281,9 @@ defining system libraries:
 > operating system on which the executable runs, unless that component itself
 > accompanies the executable.
 
-Our question is - does the closed-source run-time of Intel Fortran qualify as
+**Question 5: does the closed-source run-time of Intel Fortran qualify as
 a "system library" in these senses?  Specifically, if we statically link to
 the Intel Fortran run-time, to build a Numpy binary package, or we dynamically
 link to this run-time and ship the closed-source run-time library with the
 Numpy binary package, does this qualify under the system library exception?
-Is the answer the same for GPL2 and GPL3?
+Is the answer the same for GPL2 and GPL3?**
